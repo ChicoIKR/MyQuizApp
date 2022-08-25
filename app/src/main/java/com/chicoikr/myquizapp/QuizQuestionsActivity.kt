@@ -3,12 +3,19 @@ package com.chicoikr.myquizapp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 
-class QuizQuestionsActivity : AppCompatActivity() {
+class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
+
+    var mCurrentPosition: Int=1
+    var mQuestionsList: ArrayList<Question>? = null
+    var mSelectedOptionPosition: Int = 0
+
+
     var progressbar: ProgressBar? = null
     var tvProgress: TextView? = null
     var tvQuestion: TextView? = null
@@ -18,7 +25,6 @@ class QuizQuestionsActivity : AppCompatActivity() {
     var tvOption2: TextView? = null
     var tvOption3: TextView? = null
     var tvOption4: TextView? = null
-    var tvclickcheck: Button? = null
 
 
 
@@ -35,7 +41,6 @@ class QuizQuestionsActivity : AppCompatActivity() {
         tvOption2 = findViewById(R.id.tvOption2)
         tvOption3 = findViewById(R.id.tvOption3)
         tvOption4 = findViewById(R.id.tvOption4)
-        tvclickcheck = findViewById(R.id.tvclickcheck)
 
         val questionsList = Constants.getQuestions()
         Log.i("questionsList size is", "${questionsList.size}")
@@ -45,6 +50,7 @@ class QuizQuestionsActivity : AppCompatActivity() {
         }
         var currentPosition= 0
         val question: Question= questionsList[currentPosition]
+        ivImage?.setImageResource(question.image)
         progressbar?.progress = currentPosition
         tvProgress?.text = "$currentPosition/${progressbar?.max}"
         tvQuestion?.text = question.question
@@ -53,5 +59,9 @@ class QuizQuestionsActivity : AppCompatActivity() {
         tvOption3?.text = question.optionThree
         tvOption4?.text = question.optionFour
 
+    }
+
+    override fun onClick(p0: View?) {
+        TODO("Not yet implemented")
     }
 }
