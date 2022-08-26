@@ -15,7 +15,7 @@ import androidx.core.widget.TintableCompoundDrawablesView
 
 class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
 
-    var mCurrentPosition: Int=1
+    var mCurrentPosition: Int=0
     var mQuestionsList: ArrayList<Question>? = null
     var mSelectedOptionPosition: Int = 0
 
@@ -66,10 +66,10 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun setQuestion() {
+        defaultOptionsView()
 
 
-        mCurrentPosition = 0
-        val question: Question = mQuestionsList!![mCurrentPosition]
+        var question: Question = mQuestionsList!![mCurrentPosition]
         ivImage?.setImageResource(question.image)
         progressbar?.progress = mCurrentPosition
         tvProgress?.text = "$mCurrentPosition/${progressbar?.max}"
@@ -147,8 +147,9 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
             R.id.tvclickcheck -> {
+
                 if (mSelectedOptionPosition == 0) {
-                    mCurrentPosition++
+                    this.mCurrentPosition ++
 
                     when {
                         mCurrentPosition <= mQuestionsList!!.size -> {
@@ -161,6 +162,12 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
                         answerView(mSelectedOptionPosition, R.drawable.incorrect_option_border_bg)}
 
                     answerView(question.correctAnswer, R.drawable.correct_option_border_bg)
+                    if (mCurrentPosition == mQuestionsList!!.size){
+                        buttonCheck?.text ="FINISH"
+                    }else{
+                        buttonCheck?.text="GO TO NEXT QUESTION"
+                    }
+                    mSelectedOptionPosition = 0
                 }
 
             }
