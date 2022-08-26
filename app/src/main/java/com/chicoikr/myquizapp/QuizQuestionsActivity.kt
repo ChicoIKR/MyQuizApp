@@ -1,5 +1,7 @@
 package com.chicoikr.myquizapp
 
+import android.graphics.Color
+import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -8,6 +10,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 
 class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -25,6 +28,10 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
     var tvOption2: TextView? = null
     var tvOption3: TextView? = null
     var tvOption4: TextView? = null
+    var buttonCheck: Button? = null
+
+
+
 
 
 
@@ -41,27 +48,106 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
         tvOption2 = findViewById(R.id.tvOption2)
         tvOption3 = findViewById(R.id.tvOption3)
         tvOption4 = findViewById(R.id.tvOption4)
+        buttonCheck = findViewById<Button>(R.id.tvclickcheck)
 
-        val questionsList = Constants.getQuestions()
-        Log.i("questionsList size is", "${questionsList.size}")
+        tvOption1?.setOnClickListener(this)
+        tvOption2?.setOnClickListener(this)
+        tvOption3?.setOnClickListener(this)
+        tvOption4?.setOnClickListener(this)
+        buttonCheck?.setOnClickListener(this)
 
-        for (i in questionsList){
-            Log.e("Questions", i.question)
-        }
-        var currentPosition= 0
-        val question: Question= questionsList[currentPosition]
+
+        mQuestionsList = Constants.getQuestions()
+
+        setQuestion()
+
+
+    }
+
+    private fun setQuestion() {
+
+
+        mCurrentPosition = 0
+        val question: Question = mQuestionsList!![mCurrentPosition]
         ivImage?.setImageResource(question.image)
-        progressbar?.progress = currentPosition
-        tvProgress?.text = "$currentPosition/${progressbar?.max}"
+        progressbar?.progress = mCurrentPosition
+        tvProgress?.text = "$mCurrentPosition/${progressbar?.max}"
         tvQuestion?.text = question.question
         tvOption1?.text = question.optionOne
         tvOption2?.text = question.optionTwo
         tvOption3?.text = question.optionThree
         tvOption4?.text = question.optionFour
 
+        if (mCurrentPosition == mQuestionsList!!.size){
+            buttonCheck?.text = "Finish"
+
+        }else{
+            buttonCheck?.text= "Add Answer"
+        }
     }
 
-    override fun onClick(p0: View?) {
-        TODO("Not yet implemented")
+    fun defaultOptionsView(){
+        val options = ArrayList<TextView>()
+        tvOption1?.let{
+            options.add(0, it)
+        }
+        tvOption2?.let{
+            options.add(1, it)
+        }
+        tvOption3?.let{
+            options.add(2, it)
+        }
+        tvOption4?.let{
+            options.add(3, it)
+        }
+
+        for(option in options){
+            option.setTextColor(Color.parseColor("#7A8089"))
+            option.typeface = Typeface.DEFAULT
+            option.background = ContextCompat.getDrawable(
+                this,R.drawable.default_option_border_bg
+            )
+        }
+
+    }
+    fun selectedOptionView (selectedOptionNum: Int, tv:TextView){
+        defaultOptionsView()
+
+        mSelectedOptionPosition = selectedOptionNum
+
+        tv.setTextColor(Color.parseColor("#363A43"))
+        tv.setTypeface(tv.typeface, Typeface.BOLD)
+        tv.background = ContextCompat.getDrawable(
+            this, R.drawable.default_option_border_bg2
+        )
+
+    }
+
+    override fun onClick(view: View?) {
+        when(view?.id){
+            R.id.tvOption1 -> {
+                tvOption1?.let{
+                    selectedOptionView(1, it)
+                }
+            }
+            R.id.tvOption2 -> {
+                tvOption2?.let{
+                    selectedOptionView(2, it)
+                }
+            }
+            R.id.tvOption3 -> {
+                tvOption3?.let{
+                    selectedOptionView(3, it)
+                }
+            }
+            R.id.tvOption4 -> {
+                tvOption4?.let{
+                    selectedOptionView(4, it)
+                }
+            }
+            R.id.tvclickcheck ->{
+                // TODO "implement btn submit"
+            }
+        }
     }
 }

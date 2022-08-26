@@ -126,7 +126,7 @@
                 android:padding="15dp"
                 android:textColor="@color/white"
                 android:textSize="18sp"
-                android:text="CHECK ANSWER">
+                android:text="ADD ANSWER">
 
             </Button>
 
