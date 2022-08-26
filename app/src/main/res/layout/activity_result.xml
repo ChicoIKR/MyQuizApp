@@ -15,19 +15,61 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
-        android:text="Result"
+        android:text="Your Result, BOSS"
         android:textColor="@color/white"
         android:textSize="25sp"
-        android:textStyle="bold">
+        android:textStyle="bold|italic">
     </TextView>
 
     <ImageView
         android:id="@+id/rooster"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:contentDescription="Image"
+                android:src="@drawable/sanic2">
+    </ImageView>
+
+    <TextView
+        android:id="@+id/tvCongratulations"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="Image"
-        android:src="@drawable/sanic2"></ImageView>
+        android:layout_marginTop="16dp"
+        android:text="Congratulations"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        android:textStyle="bold">
+    </TextView>
+    <TextView
+    android:id="@+id/tvName"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="25dp"
+    android:text="Congratulations MF"
+    android:textColor="@color/white"
+    android:textSize="25sp"
+    android:textStyle="bold">
+    </TextView>
+    <TextView
+        android:id="@+id/tvScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:text="Congratulations"
+        android:textColor="#D6D6D6"
+        android:textSize="20sp"
+        android:textStyle="italic|bold"
+        tools:text="Your score is C out of V">
+    </TextView>
+    <Button
+        android:id="@+id/buttonFinish"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/white"
+        android:text="Click to Finish"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="bold">
 
-
-
+    </Button>
 </androidx.appcompat.widget.LinearLayoutCompat>
