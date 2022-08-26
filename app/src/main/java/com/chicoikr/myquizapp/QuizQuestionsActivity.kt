@@ -6,16 +6,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.ProgressBar
-import android.widget.TextView
+import android.widget.*
 import androidx.core.content.ContextCompat
 import androidx.core.widget.TintableCompoundDrawablesView
 
 class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
 
-    var mCurrentPosition: Int=0
+    var mCurrentPosition: Int= 1
     var mQuestionsList: ArrayList<Question>? = null
     var mSelectedOptionPosition: Int = 0
 
@@ -69,7 +66,7 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
         defaultOptionsView()
 
 
-        var question: Question = mQuestionsList!![mCurrentPosition]
+        var question: Question = mQuestionsList!![mCurrentPosition-1]
         ivImage?.setImageResource(question.image)
         progressbar?.progress = mCurrentPosition
         tvProgress?.text = "$mCurrentPosition/${progressbar?.max}"
@@ -155,9 +152,11 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
                         mCurrentPosition <= mQuestionsList!!.size -> {
                             setQuestion()
                         }
+                        else ->{
+                            Toast.makeText(this, "you made it", Toast.LENGTH_SHORT).show()}
                     }
                 } else {
-                    val question = mQuestionsList?.get(mCurrentPosition)
+                    val question = mQuestionsList?.get(mCurrentPosition -1)
                     if (question!!.correctAnswer != mSelectedOptionPosition){
                         answerView(mSelectedOptionPosition, R.drawable.incorrect_option_border_bg)}
 
