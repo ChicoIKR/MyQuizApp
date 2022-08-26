@@ -18,9 +18,9 @@ class MainActivity : AppCompatActivity() {
 
 
             if (etName.text.isEmpty()){
-                Toast.makeText(this, "Your name is empty", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Please enter your name", Toast.LENGTH_SHORT).show()
             }else{
-                Toast.makeText(this, "your name is ${etName.text}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Hello ${etName.text}!", Toast.LENGTH_SHORT).show()
                 val intent = Intent( this, QuizQuestionsActivity::class.java)
                 startActivity(intent)
                 finish()}

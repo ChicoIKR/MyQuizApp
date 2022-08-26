@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.core.widget.TintableCompoundDrawablesView
 
 class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -145,9 +146,45 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
                     selectedOptionView(4, it)
                 }
             }
-            R.id.tvclickcheck ->{
-                // TODO "implement btn submit"
+            R.id.tvclickcheck -> {
+                if (mSelectedOptionPosition == 0) {
+                    mCurrentPosition++
+
+                    when {
+                        mCurrentPosition <= mQuestionsList!!.size -> {
+                            setQuestion()
+                        }
+                    }
+                } else {
+                    val question = mQuestionsList?.get(mCurrentPosition)
+                    if (question!!.correctAnswer != mSelectedOptionPosition){
+                        answerView(mSelectedOptionPosition, R.drawable.incorrect_option_border_bg)}
+
+                    answerView(question.correctAnswer, R.drawable.correct_option_border_bg)
+                }
+
             }
         }
+    }
+
+     fun answerView(answer: Int, drawableView: Int){
+
+        when (answer){
+            1 ->{
+                tvOption1?.background = ContextCompat.getDrawable(this, drawableView)
+            }
+            2 ->{
+                tvOption2?.background = ContextCompat.getDrawable(this, drawableView)
+            }
+            3 ->{
+                tvOption3?.background = ContextCompat.getDrawable(this, drawableView)
+            }
+            4 ->{
+                tvOption4?.background = ContextCompat.getDrawable(this, drawableView)
+            }
+
+        }
+
+
     }
 }
